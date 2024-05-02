@@ -1,3 +1,5 @@
 Especificaciones 1 y 2) Se realiza una única clase usuario, ya que se considera que no hay un comportamiento que justifique dividir en distintas clases a los transeuntes y los cuidadores,
 ya que un mismo usuario podría estar en cada uno de los roles en distintos métodos.
-Especificación 3) El usuario para pedir un viaje debe enviar el mensaje hacerViaje, pasándole como parámetro el viaje y la lista de cuidadores deseada
+Especificación 3) El usuario para pedir un viaje debe enviar el mensaje hacerViaje, pasándole como parámetro el viaje y la lista de cuidadores deseada. Adentro de este modo se va a instanciar al topic, y luego se le va a enviar el mensaje notificarCuidadoresSeleccionados
+con justamente los cuidadores elegidos por el transeunte, dentro de este método, se van a filtrar con el mensaje evaluarViaje(evaluarViaje),
+el cuidador va a hacer esto llamando a su Estado. Este Estado evalúa si la persona está en viaje (su estado de Movimiento), que en caso de ser EN_MOVIMIENTO se rechaza el viaje automáticamente (porque no llega la notificación) y también tiene un criterioDeCuidado que verá si el viaje entra dentro de sus estándares propios. Los cuidadores que hayan aceptado el viaje serán puestos como subscribers del Topic.
