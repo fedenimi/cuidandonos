@@ -1,5 +1,32 @@
-Especificaciones 1 y 2) Se realiza una única clase usuario, ya que se considera que no hay un comportamiento que justifique dividir en distintas clases a los transeuntes y los cuidadores,
+Especificaciones 1 y 2) Se realiza una única clase usuario, ya que se considera que no hay un comportamiento que justifique dividir en
+distintas clases a los transeuntes y los cuidadores,
 ya que un mismo usuario podría estar en cada uno de los roles en distintos métodos.
-Especificación 3) El usuario para pedir un viaje debe enviar el mensaje hacerViaje, pasándole como parámetro el viaje y la lista de cuidadores deseada. Adentro de este modo se va a instanciar al topic, y luego se le va a enviar el mensaje notificarCuidadoresSeleccionados
-con justamente los cuidadores elegidos por el transeunte, dentro de este método, se van a filtrar con el mensaje evaluarViaje(evaluarViaje),
-el cuidador va a hacer esto llamando a su Estado. Este Estado evalúa si la persona está en viaje (su estado de Movimiento), que en caso de ser EN_MOVIMIENTO se rechaza el viaje automáticamente (porque no llega la notificación) y también tiene un criterioDeCuidado que verá si el viaje entra dentro de sus estándares propios. Los cuidadores que hayan aceptado el viaje serán puestos como subscribers del Topic.
+Especificación 3) El usuario para pedir un viaje debe enviar el mensaje hacerViaje, pasándole como parámetro el viaje y la lista de
+cuidadores deseada. Adentro de este método se va a instanciar al topic, y luego se le va a enviar el mensaje
+notificarCuidadoresSeleccionados con justamente los cuidadores elegidos por el transeunte, dentro de este método, se van a filtrar con el
+mensaje evaluarViaje(evaluarViaje),
+el cuidador va a hacer esto llamando a su Estado. Este Estado evalúa si la persona está en viaje (su estado de Movimiento), que en caso
+de ser EN_MOVIMIENTO se rechaza el viaje automáticamente (porque no llega la notificación) y también tiene un criterioDeCuidado que verá 
+si el viaje entra dentro de sus estándares propios. Los cuidadores que hayan aceptado el viaje serán puestos como subscribers del Topic.
+Especificación 4) El Topic va a llamar al mensaje habilitarViaje(), donde se va a fijar que hayan subcscribers, de no haber debería lanzar
+una excepción avisando que no hay cuidadores que hayan aceptado, si hay, el transeuente puede llamar a comenzarViaje(). Esto cambiará su
+estado de movimiento a EN_MOVIMIENTO y el viaje llamará el mensaje calcularDemoraAproximadaEnMins, con los respectivos calculadores
+como parámetros (luego explicaremos el patrón pensado en este caso). Luego el topic se encargará de comunicar el resultado a los
+subscribers con el mensaje avisarTiempoDeDemoraASubscribers.
+Especificación 5) Como se modificó el estado de movimiento a EN_MOVIMIENTO, cualquier solicitud de cuidado que le llegue al usuario va a
+ser rechazada automáticamente, representando que no le llegan notificaciones.
+Especificación 6) Al finalizar el viaje, el transeunte llamará al mensaje llegarBien, que devolverá su estado de movimiento a SEGURO, y
+el topic, con el mensaje avisarFinDeViaje notificará a los subscribers que el transeunte terminó su recorrido.
+Especificación 7) En caso de suceder algo malo, el transeunte llamará a reaccionar(), y a su vez, su reacción enviará reaccionar(Usuario)
+para realizar la acción que haya configurado el usuario.
+
+PATRONES
+1- Como el calculador de distancia se va a conectar a una API Rest, posteriormente esta clase, debería tener un atributo <b>Adapter</b>
+que una la información proveída por la API con nuestro dominio.
+2- Implementamos el patrón <b>Strategy</b> a la de modelar las reacciones. Ya que cada una de estas, se encargan de hacer lo mismo
+(reaccionar) pero de distintas formas. Todas estas clases implementan la interfaz Reacción, por lo que sabiendo el usuario pasado por
+parámetro, pueden realizar la acción solicitada. Además, consideramos que esto es un Strategy y no un State, ya que las clases no se
+conocen entre sí y además son reutilizables.
+3- Para las clases de reacciones, también habría que implementar algún <b>Adapter</b>, que le permita al sistema obtener la información 
+necesaria, ya sea para llamar a la policía, darse cuenta que pasó el tiempo de demora calculado o realizar una llamada al celular del
+usuario.
