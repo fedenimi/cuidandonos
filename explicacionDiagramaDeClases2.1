@@ -21,12 +21,12 @@ Especificación 7) En caso de suceder algo malo, el transeunte llamará a reacci
 para realizar la acción que haya configurado el usuario.
 
 PATRONES
-1- Como el calculador de distancia se va a conectar a una API Rest, posteriormente esta clase, debería tener un atributo <b>Adapter</b>
+1- Como el calculador de distancia se va a conectar a una API Rest, posteriormente esta clase, debería tener un atributo Adapter
 que una la información proveída por la API con nuestro dominio.
-2- Implementamos el patrón <b>Strategy</b> a la de modelar las reacciones. Ya que cada una de estas, se encargan de hacer lo mismo
+2- Implementamos el patrón Strategy a la de modelar las reacciones. Ya que cada una de estas, se encargan de hacer lo mismo
 (reaccionar) pero de distintas formas. Todas estas clases implementan la interfaz Reacción, por lo que sabiendo el usuario pasado por
 parámetro, pueden realizar la acción solicitada. Además, consideramos que esto es un Strategy y no un State, ya que las clases no se
 conocen entre sí y además son reutilizables.
-3- Para las clases de reacciones, también habría que implementar algún <b>Adapter</b>, que le permita al sistema obtener la información 
+3- Para las clases de reacciones, también habría que implementar algún Adapter, que le permita al sistema obtener la información 
 necesaria, ya sea para llamar a la policía, darse cuenta que pasó el tiempo de demora calculado o realizar una llamada al celular del
 usuario.
