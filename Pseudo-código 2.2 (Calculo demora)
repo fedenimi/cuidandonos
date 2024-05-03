@@ -1,0 +1,24 @@
+Cuando se le pide al viaje que calcule al demora...
+
+public void calcularDemoraAproxEnMins(CalculadorDeDistancia, CalucladorDeDemora) {
+    modoDeViaje.calcularDemoraViaje(this,CalcularDeDistancia,CalculadorDeDemora);
+}
+
+Si el modo del viaje es con detención...
+
+public void calcularDemoraViaje(unViaje,CalcularDeDistancia,CalculadorDeDemora){
+     ubicaciones = [unViaje.puntoDeInicio,unViaje.paradas.map(getUbicacion),unViaje.destino];
+     demoraDelViaje = 0;
+     distancia = 0;
+     for(i=0, i < ubicaciones.size() - 2, i++) {
+           distancia = distanciaEnMetrosEntre(ubicaciones[i],ubicaciones[i+1]);
+           unViaje.setdemoraAproximadaEnMins(unViaje.getdemoraAproximadaEnMins())
+     }
+    
+}
+
+Si el modo del viaje es con aviso...
+
+public void calcularDemoraViaje(unViaje,CalcularDeDistancia,CalculadorDeDemora){
+    
+}
