@@ -1,9 +1,8 @@
 Cuando se le pide al viaje que calcule al demora...
 
 public void calcularDemoraAproxEnMins(CalculadorDeDistancia, CalculadorDeDemora) {
-    ubicaciones = [this.puntoDeInicio,this.paradas.map(getUbicacion),this.destino];
-    ubicaciones.reduce.(ubicaciones.first(), (ubicacion1, ubicacion2) -> {this.calcularDemoraTrayecto(ubicacion1, ubicacion2, CalculadorDeDistancia,CalculadorDeDemora);});
-    unViaje.actualizarDemora(detenciones.sum());
+    ubicaciones = Arrays.asList(this.puntoDeInicio,this.paradas.concatMap(getUbicacion),this.destino);
+    ubicaciones.reduce.(ubicaciones.first(), (ubicacion1, ubicacion2) -> {this.calcularDemoraTrayecto(ubicacion1, ubicacion2, CalculadorDeDistancia,CalculadorDeDemora);}); // fold
     modoDeViaje.calcularAdicionales(this);
 }
 
